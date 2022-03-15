@@ -74,7 +74,7 @@ public class ServerMain {
         if ("/hello".equals(path)) {
             path = "C:\\Users\\Xolotl\\Documents\\GitHub\\SimpleHttpServer\\src\\site\\html\\hello.html";
         } else if ("/meme".equals(path)) {
-            path = "C:\\Users\\Xolotl\\Documents\\GitHub\\SimpleHttpServer\\src\\site\\html\\meme.html";
+            path = "C:\\Users\\Xolotl\\Documents\\GitHub\\SimpleHttpServer\\src\\site\\imeges\\meme.jpg";
         } else if ("/".equals(path)){
             path = "C:\\Users\\Xolotl\\Documents\\GitHub\\SimpleHttpServer\\src\\site\\html\\main.html";
         }
