@@ -72,14 +72,15 @@ public class ServerMain {
 
     private static Path getFilePath(String path) {
         if ("/hello".equals(path)) {
-            path = "src/site/html/hello.html";
+            path = "C:\\Users\\Xolotl\\Documents\\GitHub\\SimpleHttpServer\\src\\site\\html\\hello.html";
         } else if ("/meme".equals(path)) {
-            path = "src/site/html/meme.html";
-        } else {
-            path = "src/site/html/main.html";
+            path = "C:\\Users\\Xolotl\\Documents\\GitHub\\SimpleHttpServer\\src\\site\\html\\meme.html";
+        } else if ("/".equals(path)){
+            path = "C:\\Users\\Xolotl\\Documents\\GitHub\\SimpleHttpServer\\src\\site\\html\\main.html";
         }
 
-        return Paths.get("/tmp/www", path);
+        //return Paths.get("/tmp/www", path);
+        return Paths.get(path);
     }
 
     private static String guessContentType(Path filePath) throws IOException {
