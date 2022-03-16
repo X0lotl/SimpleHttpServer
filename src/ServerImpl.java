@@ -7,7 +7,7 @@ import java.nio.file.Paths;
 import java.util.stream.Stream;
 
 public class ServerImpl implements Server{
-    RequestHandlerImpl requestHandler;
+    RequestHandlerImpl requestHandler = new RequestHandlerImpl();
 
     @Override
     public void start(int port) throws IOException {
