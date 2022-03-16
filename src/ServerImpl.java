@@ -7,7 +7,7 @@ import java.nio.file.Paths;
 import java.util.stream.Stream;
 
 public class ServerImpl implements Server{
-    RequestHandler requestHandler = new RequestHandler();
+    RequestHandlerImpl requestHandler = new RequestHandlerImpl();
 
     @Override
     public void start(int port) throws IOException {
@@ -31,6 +31,6 @@ public class ServerImpl implements Server{
 
     @Override
     public void useRequestHandler(Path path) {
-        
+
     }
 }
