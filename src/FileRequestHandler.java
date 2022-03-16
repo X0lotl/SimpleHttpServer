@@ -13,9 +13,8 @@ public record FileRequestHandler(String pathOfDirectory) implements RequestHandl
         if (file.exists()) {
             response.send("200", Files.readAllBytes(filePath), requestData.headers());
         } else {
-            byte[] notFoundContent = "<h1>404 Not found :(</h1>".getBytes();
-            response.send("404", notFoundContent, requestData.headers());
+            RequestHandlerFor404 requestHandlerFor404 = new RequestHandlerFor404();
+            requestHandlerFor404.handleRequest(requestData,response);
         }
-
     }
 }
