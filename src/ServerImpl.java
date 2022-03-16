@@ -12,6 +12,7 @@ public class ServerImpl implements Server {
     @Override
     public void start(int port) throws IOException {
         try (ServerSocket serverSocket = new ServerSocket(port)) {
+            RequestHandlerFor404 requestHandlerFor404 = new RequestHandlerFor404();
             while (true) {
                 try (Socket client = serverSocket.accept()) {
                     RequestData requestData = parseClient(client);
@@ -23,7 +24,6 @@ public class ServerImpl implements Server {
                     } else if (fileRequestHandler != null){
                         fileRequestHandler.handleRequest(requestData,response);
                     } else {
-                        RequestHandlerFor404 requestHandlerFor404 = new RequestHandlerFor404();
                         requestHandlerFor404.handleRequest(requestData,response);
                     }
                 }
