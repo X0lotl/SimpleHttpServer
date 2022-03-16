@@ -2,6 +2,7 @@ import java.io.File;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
+import java.util.Arrays;
 import java.util.HashMap;
 
 public class ServerMain {
@@ -10,11 +11,16 @@ public class ServerMain {
         server.useRequestHandler("/main", new RequestHandler() {
             @Override
             public void handleRequest(RequestData requestData, Response response) throws IOException {
+                byte[] body = Files.readAllBytes(Path.of("C:\\Users\\Xolotl\\Documents\\GitHub\\SimpleHttpServer\\src\\static\\main.html"));
 
-                HashMap<String, byte[]> hashMapForContent = new HashMap<>();
-                hashMapForContent.put("text/html", Files.readAllBytes(Path.of("C:\\Users\\Xolotl\\Documents\\GitHub\\SimpleHttpServer\\src\\static\\main.html")));
+                response.send("200",body,requestData.headers());
+            }
+        });
 
-                response.send("200",hashMapForContent,requestData);
+        server.useRequestHandler("/ua", new RequestHandler() {
+            @Override
+            public void handleRequest(RequestData requestData, Response response) throws IOException {
+                response.send("200","Glory To Ukraine".getBytes(),requestData.headers());
             }
         });
 

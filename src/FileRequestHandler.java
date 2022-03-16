@@ -18,20 +18,15 @@ public class FileRequestHandler implements RequestHandler {
     @Override
     public void handleRequest(RequestData requestData, Response response) throws IOException {
 
-        HashMap<String, byte[]> hashMapForContent = new HashMap<>();
-
         Path path = Paths.get(pathOfDirectory);//FileSystems.getDefault().getPath(pathOfDirectory);
         Path filePath = path.resolve(requestData.path().substring(1));
         File file = new File(String.valueOf(filePath));
 
         if(file.exists()){
-            String contentType = guessContentType(Path.of(file.getPath()));
-            hashMapForContent.put(contentType,Files.readAllBytes(Path.of(file.getPath())));
-            response.send("200",hashMapForContent,requestData);
+            response.send("200", Files.readAllBytes(filePath),requestData.headers());
         } else {
             byte[] notFoundContent = "<h1>404 Not found :(</h1>".getBytes();
-            hashMapForContent.put("text/html",notFoundContent);
-            response.send("404",hashMapForContent,requestData);
+            response.send("404",notFoundContent,requestData.headers());
         }
 
     }

@@ -36,7 +36,6 @@ public class ServerImpl implements Server {
 
         StringBuilder requestBuilder = new StringBuilder();
         String line;
-
         while (!(line = bufferedReader.readLine()).isBlank()) {
             requestBuilder.append(line + "\r\n");
         }
@@ -49,7 +48,17 @@ public class ServerImpl implements Server {
         String version = firstRequestLine[2];
         String host = requestsLines[1].split(" ")[1];
 
-        List<String> headers = new ArrayList<>(Arrays.asList(requestsLines).subList(2, requestsLines.length));
+        HashMap<String, String> headers = new HashMap<>();
+
+        for (int i = 2; i < requestsLines.length; i++){
+            String[] headersArray = requestsLines[i].split(": ");
+            StringBuilder header = new StringBuilder();
+            for (int j = 1; j < headersArray.length; j++){
+                header.append(headersArray[j]);
+            }
+                headers.put(headersArray[0], header.toString());
+
+        }
 
         RequestData requestData = new RequestData(method, path, version, host, headers);
 
