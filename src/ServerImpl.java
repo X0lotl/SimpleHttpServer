@@ -8,11 +8,11 @@ import java.util.HashMap;
 public class ServerImpl implements Server {
     HashMap<String, RequestHandler> requestHandlers= new HashMap<>();
     FileRequestHandler fileRequestHandler = null;
+    RequestHandlerFor404 requestHandlerFor404 = new RequestHandlerFor404();
 
     @Override
     public void start(int port) throws IOException {
         try (ServerSocket serverSocket = new ServerSocket(port)) {
-            RequestHandlerFor404 requestHandlerFor404 = new RequestHandlerFor404();
             while (true) {
                 try (Socket client = serverSocket.accept()) {
                     RequestData requestData = parseClient(client);
