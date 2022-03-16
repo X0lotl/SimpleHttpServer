@@ -31,6 +31,6 @@ public class ServerImpl implements Server{
 
     @Override
     public void useRequestHandler(Path path) {
-
+        
     }
 }

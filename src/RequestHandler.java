@@ -42,15 +42,19 @@ public class RequestHandler implements RequestHandlerInterface{
         String[] requestsLines = request.split("\r\n");
         String[] firstRequestLine = requestsLines[0].split(" ");
         String method = firstRequestLine[0];
-        String path = firstRequestLine[1];//.replace("/", "");
+        String path = firstRequestLine[1];
         String version = firstRequestLine[2];
         String host = requestsLines[1].split(" ")[1];
 
         List<String> headers = new ArrayList<>(Arrays.asList(requestsLines).subList(2, requestsLines.length));
 
-        String accessLog = String.format("Client %s, method %s, path %s, version %s, host %s, headers %s",
-                client.toString(), method, path, version, host, headers.toString());
-        System.out.println(accessLog);
+        RequestData requestData = new RequestData(client,method, path, version, host, headers);
+
+        /*String accessLog = String.format("Client %s, method %s, path %s, version %s, host %s, headers %s",
+                client.toString(), method, path, version, host, headers.toString());*/
+
+        //String accessLog = String.format();
+        System.out.println(requestData);
 
 
         if (getFileFromHashMap(path) != null) {
