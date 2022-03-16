@@ -9,8 +9,8 @@ public class ServerMain {
         Server server = new ServerImpl();
         server.useRequestHandler("/main", new RequestHandler() {
             @Override
-            public void handleRequest(RequestData requestData) throws IOException {
-                Response response = new ResponseImpl();
+            public void handleRequest(RequestData requestData, Response response) throws IOException {
+
                 HashMap<String, byte[]> hashMapForContent = new HashMap<>();
                 hashMapForContent.put("text/html", Files.readAllBytes(Path.of("C:\\Users\\Xolotl\\Documents\\GitHub\\SimpleHttpServer\\src\\static\\main.html")));
 

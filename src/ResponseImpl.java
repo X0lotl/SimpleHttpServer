@@ -4,9 +4,14 @@ import java.net.Socket;
 import java.util.HashMap;
 
 public class ResponseImpl implements Response {
+    private Socket client;
+
+    public ResponseImpl(Socket client){
+        this.client = client;
+    }
+
     @Override
     public void send(String status, HashMap<String,byte[]> hashMapForContent, RequestData requestData) throws IOException {
-        Socket client = requestData.client();
         String contentType = (String) hashMapForContent.keySet().toArray()[0];
         OutputStream clientOutput = client.getOutputStream();
         clientOutput.write(("HTTP/1.1 \r\n" + status).getBytes());

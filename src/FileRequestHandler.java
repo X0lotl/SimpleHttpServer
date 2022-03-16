@@ -16,10 +16,9 @@ public class FileRequestHandler implements RequestHandler {
     }
 
     @Override
-    public void handleRequest(RequestData requestData) throws IOException {
+    public void handleRequest(RequestData requestData, Response response) throws IOException {
 
         HashMap<String, byte[]> hashMapForContent = new HashMap<>();
-        Response response = new ResponseImpl();
 
         Path path = Paths.get(pathOfDirectory);//FileSystems.getDefault().getPath(pathOfDirectory);
         Path filePath = path.resolve(requestData.path().substring(1));

@@ -9,7 +9,6 @@ import java.util.HashMap;
 import java.util.List;
 
 public class ServerImpl implements Server {
-    String directory = null;
     HashMap<String, RequestHandler> requestHandlers= new HashMap<>();
     FileRequestHandler fileRequestHandler = null;
 
@@ -19,12 +18,13 @@ public class ServerImpl implements Server {
             while (true) {
                 try (Socket client = serverSocket.accept()) {
                     RequestData requestData = parseClient(client);
+                    Response response = new ResponseImpl(client);
 
                     if(requestHandlers.get(requestData.path()) != null){
                         RequestHandler requestHandler = requestHandlers.get(requestData.path());
-                        requestHandler.handleRequest(requestData);
+                        requestHandler.handleRequest(requestData,response);
                     } else {
-                        fileRequestHandler.handleRequest(requestData);
+                        fileRequestHandler.handleRequest(requestData,response);
                     }
                 }
             }
@@ -51,7 +51,7 @@ public class ServerImpl implements Server {
 
         List<String> headers = new ArrayList<>(Arrays.asList(requestsLines).subList(2, requestsLines.length));
 
-        RequestData requestData = new RequestData(client,method, path, version, host, headers);
+        RequestData requestData = new RequestData(method, path, version, host, headers);
 
         System.out.println(requestData);
 
