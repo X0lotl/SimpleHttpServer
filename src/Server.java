@@ -7,5 +7,5 @@ public interface Server{
 
     void useStatic(String path) throws IOException;
 
-    void useRequestHandler(Path path);
+    void useRequestHandler(String path, RequestHandler requestHandler);
 }

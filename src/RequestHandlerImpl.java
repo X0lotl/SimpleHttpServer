@@ -41,11 +41,11 @@ public class RequestHandlerImpl implements RequestHandler {
 
         System.out.println(requestData);
 
-        HashMap<String, Object> hashMapForContent = new HashMap<>();
+        HashMap<String, byte[]> hashMapForContent = new HashMap<>();
         if (getFileFromHashMap(path) != null) {
             File file = getFileFromHashMap(path);
             String contentType = guessContentType(Path.of(file.getPath()));
-            hashMapForContent.put(contentType,file);
+            hashMapForContent.put(contentType,Files.readAllBytes(Path.of(file.getPath())));
             response.send("200",hashMapForContent,requestData);
         } else {
             byte[] notFoundContent = "<h1>404 Not found :(</h1>".getBytes();
