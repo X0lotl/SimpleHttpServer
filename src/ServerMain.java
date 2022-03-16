@@ -9,7 +9,7 @@ public class ServerMain {
             @Override
             public void handleRequest(RequestData requestData, Response response) throws IOException {
                 byte[] body = Files.readAllBytes(Path.of("C:\\Users\\Xolotl\\Documents\\GitHub\\SimpleHttpServer\\src\\static\\main.html"));
-
+                requestData.headers().put("Content-Type", "text/html");
                 response.send("200",body,requestData.headers());
             }
         });
@@ -17,6 +17,7 @@ public class ServerMain {
         server.useRequestHandler("/ua", new RequestHandler() {
             @Override
             public void handleRequest(RequestData requestData, Response response) throws IOException {
+                requestData.headers().put("Content-Type", "text");
                 response.send("200","Glory To Ukraine".getBytes(),requestData.headers());
             }
         });

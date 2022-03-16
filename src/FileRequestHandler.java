@@ -9,12 +9,16 @@ public record FileRequestHandler(String pathOfDirectory) implements RequestHandl
         Path path = Paths.get(pathOfDirectory);
         Path filePath = path.resolve(requestData.path().substring(1));
         File file = new File(String.valueOf(filePath));
-
         if (file.exists()) {
+            requestData.headers().put("Content-Type", getContentType(filePath));
             response.send("200", Files.readAllBytes(filePath), requestData.headers());
         } else {
             RequestHandlerFor404 requestHandlerFor404 = new RequestHandlerFor404();
             requestHandlerFor404.handleRequest(requestData,response);
         }
+    }
+
+    private String getContentType(Path path) throws IOException {
+        return Files.probeContentType(path);
     }
 }

@@ -14,7 +14,7 @@ public class ResponseImpl implements Response {
     public void send(String status, byte[] body, Map<String, String> headers) throws IOException {
         OutputStream clientOutput = client.getOutputStream();
         clientOutput.write(("HTTP/1.1 \r\n" + status).getBytes());
-        clientOutput.write(("ContentType: " + headers.get("Accept") + "\r\n").getBytes());
+        clientOutput.write(("ContentType: " + headers.get("Content-Type") + "\r\n").getBytes());
         clientOutput.write("\r\n".getBytes());
         clientOutput.write(body);
         clientOutput.write("\r\n\r\n".getBytes());

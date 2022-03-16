@@ -9,6 +9,7 @@ public class ServerImpl implements Server {
     HashMap<String, RequestHandler> requestHandlers= new HashMap<>();
     FileRequestHandler fileRequestHandler = null;
     RequestHandlerFor404 requestHandlerFor404 = new RequestHandlerFor404();
+    HashMap<String, String> headers = new HashMap<>();
 
     @Override
     public void start(int port) throws IOException {
@@ -46,8 +47,6 @@ public class ServerImpl implements Server {
         String method = firstRequestLine[0];
         String path = firstRequestLine[1];
         String version = firstRequestLine[2];
-
-        HashMap<String, String> headers = new HashMap<>();
 
         for (int i = 1; i < requestsLines.length; i++){
             String[] headersArray = requestsLines[i].split(": ");
