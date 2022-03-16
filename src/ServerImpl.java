@@ -20,7 +20,7 @@ public class ServerImpl implements Server {
                     if(requestHandlers.get(requestData.path()) != null){
                         RequestHandler requestHandler = requestHandlers.get(requestData.path());
                         requestHandler.handleRequest(requestData,response);
-                    } else {
+                    } else if (fileRequestHandler != null){
                         fileRequestHandler.handleRequest(requestData,response);
                     }
                 }
