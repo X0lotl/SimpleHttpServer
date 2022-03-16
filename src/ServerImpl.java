@@ -22,7 +22,7 @@ public class ServerImpl implements Server {
                         requestHandler.handleRequest(requestData,response);
                     } else if (fileRequestHandler != null){
                         fileRequestHandler.handleRequest(requestData,response);
-                    }
+                    } else ()
                 }
             }
         }
