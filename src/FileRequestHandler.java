@@ -1,9 +1,5 @@
 import java.io.*;
-import java.net.Socket;
 import java.nio.file.*;
-import java.util.*;
-import java.util.function.Consumer;
-import java.util.stream.Stream;
 
 public class FileRequestHandler implements RequestHandler {
     private final String pathOfDirectory;
@@ -11,14 +7,10 @@ public class FileRequestHandler implements RequestHandler {
         this.pathOfDirectory = pathOfDirectory;
     }
 
-    public String guessContentType(Path filePath) throws IOException {
-        return Files.probeContentType(filePath);
-    }
-
     @Override
     public void handleRequest(RequestData requestData, Response response) throws IOException {
 
-        Path path = Paths.get(pathOfDirectory);//FileSystems.getDefault().getPath(pathOfDirectory);
+        Path path = Paths.get(pathOfDirectory);
         Path filePath = path.resolve(requestData.path().substring(1));
         File file = new File(String.valueOf(filePath));
 
@@ -30,9 +22,4 @@ public class FileRequestHandler implements RequestHandler {
         }
 
     }
-
-    public String getFileName(Path path) {
-        return "/" + String.valueOf(path.getFileName());
-    }
-
 }

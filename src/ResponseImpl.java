@@ -1,8 +1,6 @@
 import java.io.IOException;
 import java.io.OutputStream;
-import java.io.PrintStream;
 import java.net.Socket;
-import java.util.HashMap;
 import java.util.Map;
 
 public class ResponseImpl implements Response {
@@ -15,8 +13,6 @@ public class ResponseImpl implements Response {
     @Override
     public void send(String status, byte[] body, Map<String, String> headers) throws IOException {
         OutputStream clientOutput = client.getOutputStream();
-        PrintStream printStream = new PrintStream(client.getOutputStream());
-        //printStream.println(body);
         clientOutput.write(("HTTP/1.1 \r\n" + status).getBytes());
         clientOutput.write(("ContentType: " + headers.get("Accept") + "\r\n").getBytes());
         clientOutput.write("\r\n".getBytes());
