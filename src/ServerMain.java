@@ -1,10 +1,23 @@
+import java.io.File;
 import java.io.IOException;
+import java.nio.file.Files;
 import java.nio.file.Path;
+import java.util.HashMap;
 
 public class ServerMain {
     private static Server createServer() throws IOException {
         Server server = new ServerImpl();
-        server.useRequestHandler("/",new RequestHandlerImpl());
+        server.useRequestHandler("/main", new RequestHandler() {
+            @Override
+            public void handleRequest(RequestData requestData) throws IOException {
+                Response response = new ResponseImpl();
+                HashMap<String, byte[]> hashMapForContent = new HashMap<>();
+                hashMapForContent.put("text/html", Files.readAllBytes(Path.of("C:\\Users\\Xolotl\\Documents\\GitHub\\SimpleHttpServer\\src\\static\\main.html")));
+
+                response.send("200",hashMapForContent,requestData);
+            }
+        });
+
         server.useStatic("C:\\Users\\Xolotl\\Documents\\GitHub\\SimpleHttpServer\\src\\static");
 
         return server;
