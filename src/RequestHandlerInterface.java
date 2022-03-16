@@ -13,7 +13,9 @@ public interface RequestHandlerInterface {
 
     File getFileFromHashMap(String path);
 
-    void addHandler(String pathInServer, String path);
+    String getFileName(Path path);
+
+    void addFileToHashMap(Path path);
 
 }
 

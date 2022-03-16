@@ -42,7 +42,7 @@ public class RequestHandler implements RequestHandlerInterface{
         String[] requestsLines = request.split("\r\n");
         String[] firstRequestLine = requestsLines[0].split(" ");
         String method = firstRequestLine[0];
-        String path = firstRequestLine[1].replace("/", "");
+        String path = firstRequestLine[1];//.replace("/", "");
         String version = firstRequestLine[2];
         String host = requestsLines[1].split(" ")[1];
 
@@ -70,7 +70,12 @@ public class RequestHandler implements RequestHandlerInterface{
     }
 
     @Override
-    public void addHandler(String pathInServer, String path) {
-        hashMapForFilesFromPath.put(pathInServer, new File(path));
+    public String getFileName(Path path) {
+        return "/" + String.valueOf(path.getFileName());
+    }
+
+    @Override
+    public void addFileToHashMap(Path path) {
+        hashMapForFilesFromPath.put(getFileName(path), new File(String.valueOf(path)));
     }
 }

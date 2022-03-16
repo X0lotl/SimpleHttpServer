@@ -1,7 +1,10 @@
 import java.io.IOException;
 import java.net.ServerSocket;
 import java.net.Socket;
+import java.nio.file.Files;
 import java.nio.file.Path;
+import java.nio.file.Paths;
+import java.util.stream.Stream;
 
 public class ServerImpl implements Server{
     RequestHandler requestHandler = new RequestHandler();
@@ -18,7 +21,16 @@ public class ServerImpl implements Server{
     }
 
     @Override
+    public void useStatic(String path) throws IOException {
+        try (Stream<Path> paths = Files.walk(Paths.get(path))) {
+            paths
+                    .filter(Files::isRegularFile)
+                    .forEach(requestHandler::addFileToHashMap);
+        }
+    }
+
+    @Override
     public void useRequestHandler(Path path) {
-        requestHandler.addHandler(String.valueOf(path.getFileName()), String.valueOf(path));
+
     }
 }

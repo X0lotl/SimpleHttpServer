@@ -1,15 +1,9 @@
 import java.io.IOException;
-import java.nio.file.Path;
-
 
 public class ServerMain {
-    private static Server createServer() {
+    private static Server createServer() throws IOException {
         Server server = new ServerImpl();
-
-        server.useRequestHandler(Path.of("C:\\Users\\Xolotl\\Documents\\GitHub\\SimpleHttpServer\\src\\site\\html\\hello.html"));
-        server.useRequestHandler(Path.of("C:\\Users\\Xolotl\\Documents\\GitHub\\SimpleHttpServer\\src\\site\\html\\meme.html"));
-        server.useRequestHandler(Path.of("C:\\Users\\Xolotl\\Documents\\GitHub\\SimpleHttpServer\\src\\site\\html\\main.html"));
-        server.useRequestHandler(Path.of("C:\\Users\\Xolotl\\Documents\\GitHub\\SimpleHttpServer\\src\\site\\imeges\\meme.jpg"));
+        server.useStatic("C:\\Users\\Xolotl\\Documents\\GitHub\\SimpleHttpServer\\src\\static");
 
         return server;
     }
