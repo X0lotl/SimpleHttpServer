@@ -46,11 +46,10 @@ public class ServerImpl implements Server {
         String method = firstRequestLine[0];
         String path = firstRequestLine[1];
         String version = firstRequestLine[2];
-        String host = requestsLines[1].split(" ")[1];
 
         HashMap<String, String> headers = new HashMap<>();
 
-        for (int i = 2; i < requestsLines.length; i++){
+        for (int i = 1; i < requestsLines.length; i++){
             String[] headersArray = requestsLines[i].split(": ");
             StringBuilder header = new StringBuilder();
             for (int j = 1; j < headersArray.length; j++){
@@ -60,7 +59,7 @@ public class ServerImpl implements Server {
 
         }
 
-        RequestData requestData = new RequestData(method, path, version, host, headers);
+        RequestData requestData = new RequestData(method, path, version, headers);
 
         System.out.println(requestData);
 
