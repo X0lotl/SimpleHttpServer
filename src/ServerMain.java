@@ -14,6 +14,20 @@ public class ServerMain {
             }
         });
 
+        server.useRequestHandler("/.*", new RequestHandler() {
+            @Override
+            public void handleRequest(RequestData requestData, Response response) throws IOException {
+                System.out.println("/.*");
+            }
+        });
+
+        server.useRequestHandler("/ua/.*", new RequestHandler() {
+            @Override
+            public void handleRequest(RequestData requestData, Response response) throws IOException {
+                System.out.println("/ua/.*");
+            }
+        });
+
         server.useStatic("C:\\Users\\Xolotl\\Documents\\GitHub\\SimpleHttpServer\\src\\static");
 
         return server;
