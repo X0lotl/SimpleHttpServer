@@ -6,7 +6,7 @@ import java.util.List;
 import java.util.Objects;
 
 public class ServerImpl implements Server {
-    List<RequestHandlerPicker> requestHandlers = new ArrayList<>();
+    List<RequestHandlerManager> requestHandlers = new ArrayList<>();
     FileRequestHandler fileRequestHandler = null;
     RequestHandlerFor404 requestHandlerFor404 = new RequestHandlerFor404();
     ClientParser clientParser = new ClientParser();
@@ -49,6 +49,6 @@ public class ServerImpl implements Server {
 
     @Override
     public void useRequestHandler(String pattern, RequestHandler requestHandler) {
-        requestHandlers.add(new RequestHandlerPicker(pattern, requestHandler));
+        requestHandlers.add(new RequestHandlerManager(pattern, requestHandler));
     }
 }
