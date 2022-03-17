@@ -18,7 +18,7 @@ public class ResponseImpl implements Response {
         if (contentType == null){
             contentType = "text/html";
         }
-        
+
         clientOutput.write(("HTTP/1.1 \r\n" + status).getBytes());
         clientOutput.write(("ContentType: " + contentType + "\r\n").getBytes());
         clientOutput.write("\r\n".getBytes());

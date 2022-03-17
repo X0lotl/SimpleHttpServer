@@ -4,9 +4,10 @@ import java.io.InputStreamReader;
 import java.net.ServerSocket;
 import java.net.Socket;
 import java.util.HashMap;
+import java.util.regex.Pattern;
 
 public class ServerImpl implements Server {
-    HashMap<String, RequestHandler> requestHandlers= new HashMap<>();
+    HashMap<String, RequestHandler> requestHandlers = new HashMap<>();
     FileRequestHandler fileRequestHandler = null;
     RequestHandlerFor404 requestHandlerFor404 = new RequestHandlerFor404();
     HashMap<String, String> headers = new HashMap<>();
@@ -19,12 +20,21 @@ public class ServerImpl implements Server {
                     RequestData requestData = parseClient(client);
                     Response response = new ResponseImpl(client);
 
-                    if(requestHandlers.get(requestData.path()) != null){
-                        RequestHandler requestHandler = requestHandlers.get(requestData.path());
-                        requestHandler.handleRequest(requestData,response);
-                    } else if (fileRequestHandler != null){
+                    Object[] patterns = requestHandlers.keySet().toArray();
+
+                    boolean hasMath = false;
+
+                    for (int i = 0; i < patterns.length; i++) {
+                        hasMath = requestData.path().matches(String.valueOf(patterns[i]));
+                        if (hasMath){
+                            RequestHandler requestHandler = requestHandlers.get(patterns[i]);
+                            requestHandler.handleRequest(requestData,response);
+                        }
+                    }
+                    
+                    if (fileRequestHandler != null && !hasMath){
                         fileRequestHandler.handleRequest(requestData,response);
-                    } else {
+                    } else if (!hasMath){
                         requestHandlerFor404.handleRequest(requestData,response);
                     }
                 }
@@ -71,7 +81,7 @@ public class ServerImpl implements Server {
     }
 
     @Override
-    public void useRequestHandler(String path, RequestHandler requestHandler) {
-        requestHandlers.put(path,requestHandler);
+    public void useRequestHandler(String pattern, RequestHandler requestHandler) {
+        requestHandlers.put(pattern,requestHandler);
     }
 }
