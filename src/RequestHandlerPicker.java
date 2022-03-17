@@ -1,4 +1,2 @@
-public record RequestHandlerPicker() {
-    void RequestHandler(String pattern, RequestHandler requestHandler){
-    }
+public record RequestHandlerPicker(String pattern, RequestHandler requestHandler) {
 }
