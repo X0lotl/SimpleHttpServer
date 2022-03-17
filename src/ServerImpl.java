@@ -31,7 +31,7 @@ public class ServerImpl implements Server {
                             requestHandler.handleRequest(requestData,response);
                         }
                     }
-                    
+
                     if (fileRequestHandler != null && !hasMath){
                         fileRequestHandler.handleRequest(requestData,response);
                     } else if (!hasMath){
@@ -47,7 +47,7 @@ public class ServerImpl implements Server {
 
         StringBuilder requestBuilder = new StringBuilder();
         String line;
-        while (!(line = bufferedReader.readLine()).isBlank()) {
+        while (!(line = bufferedReader.readLine()).isBlank()&& client.getInputStream() != null) {
             requestBuilder.append(line + "\r\n");
         }
 

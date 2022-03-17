@@ -6,7 +6,7 @@ import java.util.regex.Pattern;
 public class ServerMain {
     private static Server createServer() throws IOException {
         Server server = new ServerImpl();
-        server.useRequestHandler(".ua", new RequestHandler() {
+        server.useRequestHandler("(?:.+)UA", new RequestHandler() {
             @Override
             public void handleRequest(RequestData requestData, Response response) throws IOException {
                 requestData.headers().put("Content-Type", "text");
