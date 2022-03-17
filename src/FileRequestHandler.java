@@ -1,7 +1,12 @@
 import java.io.*;
 import java.nio.file.*;
 
-public record FileRequestHandler(String pathOfDirectory) implements RequestHandler {
+public class FileRequestHandler implements RequestHandler {
+    private final String pathOfDirectory;
+
+    public FileRequestHandler(String pathOfDirectory){
+        this.pathOfDirectory = pathOfDirectory;
+    }
 
     @Override
     public void handleRequest(RequestData requestData, Response response) throws IOException {

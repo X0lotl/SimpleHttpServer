@@ -22,9 +22,9 @@ public class ServerImpl implements Server {
                     boolean hasMatch = false;
                     if (!Objects.equals(requestData.path(), "/favicon.ico")){
                         for (int i = 0; i < requestHandlers.size(); i++) {
-                            hasMatch = requestData.path().matches(requestHandlers.get(i).pattern());
+                            hasMatch = requestData.path().matches(requestHandlers.get(i).getPattern());
                             if (hasMatch ) {
-                                RequestHandler requestHandler = requestHandlers.get(i).requestHandler();
+                                RequestHandler requestHandler = requestHandlers.get(i).getRequestHandler();
                                 requestHandler.handleRequest(requestData, response);
                                 break;
                             }

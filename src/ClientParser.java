@@ -12,7 +12,7 @@ public class ClientParser {
 
         StringBuilder requestBuilder = new StringBuilder();
         String line;
-        
+
         while ((line = bufferedReader.readLine()) != null && !(line.isBlank())) {
             if (line != null) {
                 requestBuilder.append(line + "\r\n");
